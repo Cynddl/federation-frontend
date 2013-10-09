@@ -11,6 +11,8 @@
 
 @import "modules/pace";
 
+@import "flex-box";
+
 
 // Main styles
 // --------------------------------------------------
@@ -165,12 +167,14 @@ h3.day {
 	padding-bottom: 15px;
 }
 
-.event + .event {
-	margin-top: 30px;
-}
-
 section.daily {
 	margin-bottom: 40px;
+
+	.days {
+		@include display(flex);
+		@include flex-wrap(wrap);
+		@include align-items(flex-start);
+	}
 }
 
 

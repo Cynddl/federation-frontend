@@ -10,21 +10,23 @@
 	{{#each events}}
 	<section class="daily">
 		<h3 class="day">{{@key}}</h3>
-		{{#each this}}
-		<article class="event icons-container">
-			<div class="bariol-icon circle-icon">&asymp;</div>
-			<h4>{{{title}}}</h4>
-			<p class="date-range">{{date_range}} / {{places}}</p>
-			{{#if description}}
-			<p class="description">{{description}}</p>
-			{{/if}}
-			{{#if attenduee}}
-			<div class="add-box">
-				<p><a href="#">{{attendee}} personnes y participent.</a></p>
-			</div>
-			{{/if}}
-		</article>
-		{{/each}}
+		<div class="days">
+			{{#each this}}
+			<article class="event icons-container">
+				<div class="bariol-icon circle-icon">&asymp;</div>
+				<h4>{{{title}}}</h4>
+				<p class="date-range">{{date_range}} / {{places}}</p>
+				{{#if description}}
+				<p class="description">{{description}}</p>
+				{{/if}}
+				{{#if attenduee}}
+				<div class="add-box">
+					<p><a href="#">{{attendee}} personnes y participent.</a></p>
+				</div>
+				{{/if}}
+			</article>
+			{{/each}}
+		</div>
 	</section>
 	{{/each}}
 </div>
