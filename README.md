@@ -52,3 +52,8 @@ Puis ensuite :
 
 * ``` grunt server ``` pour lancer un serveur de test en local ;
 * ``` grunt build ``` pour compiler l'application dans le sous-dossier dist.
+
+
+### Polices de caractères
+
+Les polices Proxima Nova et Bariol Icons sont utilisées dans le site, mais non incluses au sein du dépôt.
