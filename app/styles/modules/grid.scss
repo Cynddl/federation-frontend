@@ -1,0 +1,23 @@
+// Grid
+// --------------------------------------------------
+
+.container {
+	// @include outer-container;
+	height: 100%;
+
+	.sidebar {
+		position: fixed;
+		float: left;
+		width: 256px;
+	}
+
+	.content {
+		float: left;
+		width: 100%;
+
+		header, section {
+			padding-left: 296px;
+			padding-right: 30px;
+		}
+	}
+}

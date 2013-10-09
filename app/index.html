@@ -1,0 +1,86 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Fédération | ENS de Lyon</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="/styles/main.css">
+        <!-- build:js /scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+
+        <div class="container">
+                <!-- SIDEBAR Open -->
+                <aside class="sidebar">
+                    <h1>Fédération</h1>
+                    <ul>
+                        <li class="sep"><a href="events/semaine"><i class="icon-calendar"></i>Événéments</a></li>
+                        <li><a href="events/semaine">Cette semaine</a></li>
+                        <li><a id="current_month" href="events/mois">En août</a></li>
+                        <li><a href="events/année">Durant l'année</a></li>
+                        <li class="sep"><a href="cse"><i class="icon-bullhorn"></i>Caisse de solidarité</a></li>
+                        <li><a href="cse">Fonctionnement</a></li>
+                        <li><a href="cse/demande">Demander une subvention</a></li>
+                        <li class="sep"><a href="associations"><i class="icon-group"></i>Associations</a></li>
+                        <li><a href="associations">Les associations à l'ENS</a></li>
+                        <li><a href="federation">La Fédération</a></li>
+                    </ul>
+                </aside>
+            <!-- right content box -->
+            <div id="content" class="content">
+            </div>
+        </div>
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- build:js /scripts/vendor.js -->
+        <script type="text/javascript">
+            window.paceOptions = {
+                document: false,
+            };
+        </script>
+        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/backbone-forms/distribution/backbone-forms.js"></script>
+        <script src="bower_components/backbone.collectionsubset/backbone.collectionsubset.js"></script>
+        <script src="bower_components/handlebars/handlebars.js"></script>
+
+        <script src="bower_components/pace/pace.js"></script>
+        <script src="bower_components/moment/min/moment.min.js"></script>
+        <script src="bower_components/moment/min/lang/fr.js"></script>
+        <script src="bower_components/moment-timezone/moment-timezone.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js /scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <script src="scripts/templates.js"></script>
+        <!-- endbuild -->
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          _paq.push(["trackPageView"]);
+          _paq.push(["enableLinkTracking"]);
+
+          (function() {
+            var u=(("https:" == document.location.protocol) ? "https" : "http") + "://federation.ens-lyon.fr/piwik/";
+            _paq.push(["setTrackerUrl", u+"piwik.php"]);
+            _paq.push(["setSiteId", "1"]);
+            var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+            g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <!-- End Piwik Code -->
+</body>
+</html>

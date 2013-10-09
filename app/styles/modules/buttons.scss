@@ -1,0 +1,65 @@
+// Buttons
+// --------------------------------------------------
+
+
+.button, input[type="submit"] {
+	@include border-left-radius( 5px );
+	@include border-right-radius( 5px );
+	background-color: lighten( $medium-blue, 10% );
+	padding: 8px 20px;
+	color: white;
+	border: none;
+	border-bottom: 2px solid $medium-blue;
+	font-weight: lighter;
+
+	.inner-left {
+		display: inline-block;
+		padding: 3px 20px;
+		margin-left: 20px;
+
+		background-color: $medium-blue;
+		@include border-right-radius( 5px );
+	}
+}
+
+.button-small {
+	padding: 5px 15px;
+}
+
+.button.button-block, input[type="submit"].button-block {
+	padding-right: 0;
+}
+
+.button:hover, input[type="submit"]:hover {
+	color: white;
+	background-color: lighten( $medium-blue, 15% );
+	border-bottom: 2px solid lighten( $medium-blue, 5% );
+
+	.inner-left {
+		background-color: lighten( $medium-blue, 5% );
+	}
+}
+
+.button:active, input[type="submit"]:active {
+	position: relative;
+	background-color: lighten( $medium-blue, 5% );
+	border-bottom: 0;
+	border-top: 2px solid $medium-blue;
+}
+
+.button:active {
+	top: 2px;
+}
+
+.button.button-grey, input[type="submit"].button-grey {
+	background-color: $light-grey;
+	border-bottom-color: darken( $light-grey, 5% );
+	color: darken( $light-grey, 20% );
+}
+
+.button.button-grey:active, input[type="submit"].button-grey:active {
+	position: relative;
+	background-color: lighten( $light-grey, 5% );
+	border-bottom: 0;
+	border-top: 2px solid $light-grey;
+}

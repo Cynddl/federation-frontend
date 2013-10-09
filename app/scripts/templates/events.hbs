@@ -1,0 +1,30 @@
+<header class="title">
+	{{#equal method 'week'}}
+		<h2>{{eventsCount}} <strong>événements</strong> {{formatDate}}</h2> <a class="button button-grey" href="{{prev}}">&lt;</a> <a class="button button-block" href="{{next}}">Semaine prochaine<span class="inner-left">&gt;</span></a>
+	{{/equal}}
+	{{#equal method 'month'}}
+		<h2>{{eventsCount}} <strong>événements</strong> {{formatDate}}</h2> <a class="button button-grey" href="{{prev}}">&lt;</a> <a class="button button-block" href="{{next}}">Mois prochain<span class="inner-left">&gt;</span></a>
+	{{/equal}}
+</header>
+<div id="main-content">
+	{{#each events}}
+	<section class="daily">
+		<h3 class="day">{{@key}}</h3>
+		{{#each this}}
+		<article class="event icons-container">
+			<div class="bariol-icon circle-icon">&asymp;</div>
+			<h4>{{{title}}}</h4>
+			<p class="date-range">{{date_range}} / {{places}}</p>
+			{{#if description}}
+			<p class="description">{{description}}</p>
+			{{/if}}
+			{{#if attenduee}}
+			<div class="add-box">
+				<p><a href="#">{{attendee}} personnes y participent.</a></p>
+			</div>
+			{{/if}}
+		</article>
+		{{/each}}
+	</section>
+	{{/each}}
+</div>

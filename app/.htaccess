@@ -1,0 +1,17 @@
+# html5 pushstate (history) support:
+<ifModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !\.(js|css|gif|jpg|jpeg|png|ico|swf|pdf|html|php|json|svg|woff|eot|ttf)$
+    RewriteCond %{REQUEST_URI} !^index
+    RewriteRule (.*) index.html [L]
+</ifModule>
+
+<IfModule mod_alias.c>
+	Redirect permanent /index.php/cse.html http://federation.ens-lyon.fr/cse
+	Redirect permanent /index.php/association.html http://federation.ens-lyon.fr/associations
+	Redirect permanent /index.php/contact.html http://federation.ens-lyon.fr/federation
+	Redirect permanent /index.php/login/connexion.html http://federation.ens-lyon.fr/
+	Redirect permanent /index.php/calendrier.html http://federation.ens-lyon.fr/events
+	RedirectMatch permanent /index.php/calendrier/(.*).html$ http://federation.ens-lyon.fr/events
+	Redirect /sondage https://docs.google.com/forms/d/1jTIXg_kX9zJQ66ZfLxI6P5lEX4yBt1_5cIz6FMufp5Y/viewform
+</IfModule>

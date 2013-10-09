@@ -1,0 +1,21 @@
+.sass-cache
+node_modules
+
+dist
+.tmp
+
+app/styles/bourbon
+app/bower_components
+.tmp
+test/bower_components/
+
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
