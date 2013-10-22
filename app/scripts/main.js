@@ -8,6 +8,23 @@ var _ = _ || {};
 var Handlebars = Handlebars || {};
 var moment = moment || function(){};
 
+// Handlebars helper to trim long text
+Handlebars.registerHelper('trimString', function(passedString) {
+	var theString = passedString.substring(0,140);
+	if(theString === passedString) {
+		return new Handlebars.SafeString(passedString);
+	}
+	else {
+		return new Handlebars.SafeString(theString + '…');
+	}
+});
+
+Handlebars.registerHelper('breaklines', function(text) {
+    text = Handlebars.Utils.escapeExpression(text);
+    text = text.toString();
+    text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+    return new Handlebars.SafeString(text);
+});
 
 // Override Backbone.sync to support CORS requests
 (function() {
@@ -198,11 +215,28 @@ window.EventsCollectionView = Backbone.View.extend({
 		return this;
 	},
 
+	events: {
+		'click article': 'popup',
+	},
+
+	popup: function(ev){
+		console.log('popup !');
+		ev.preventDefault();
+		var modalId = $(ev.currentTarget).data('modal');
+		$('#' + modalId).toggleClass('md-show');
+		$('body').toggleClass('overflow');
+
+		$('.md-overlay, #' + modalId + ' .md-close').click(function(){
+			$('#' + modalId).removeClass('md-show');
+			$('body').removeClass('overflow');
+		});
+	},
+
 	initialize: function(){
 		this.template = Handlebars.templates.events;
 
 		this._collection = new EventsCollection();
-		this._collection.fetch();
+		//this._collection.fetch();
 
 		this._weekCollection = new Backbone.CollectionSubset({
 			parent: this._collection,
@@ -353,12 +387,6 @@ window.FederationView = Backbone.View.extend({
 window.ApplicationRouter = Backbone.Router.extend({
 	initialize: function(el) {
 		this.el = el;
-		this.eventsView = new EventsCollectionView();
-		this.eventsYearView = new EventsYearView();
-		this.cseView = new CSEView();
-		this.cseDemandeView = new CSEDemandeView();
-		this.associationsView = new AssociationsView();
-		this.federationView = new FederationView();
 
 		// Piwik
 		window._paq = window._paq || [];
@@ -370,16 +398,15 @@ window.ApplicationRouter = Backbone.Router.extend({
 		window._paq.push(['trackPageView', '/' + url]);
 	},
 
-	currentView: null,
 
-	switchView: function(view, options) {
-		if (this.currentView) {
-			this.currentView.remove();
-		}
-		this.el.html(view.el);
-		view.render(options);
-		this.currentView = view;
+	loadView : function(view) {
+		this.view && this.view.remove();
+		this.view = view;
+		this.view.render();
+		this.el.html(this.view.render().$el);
 	},
+
+	view: null,
 
 	routes: {
 		'': 'index',
@@ -396,24 +423,28 @@ window.ApplicationRouter = Backbone.Router.extend({
 
 	events: function(category, year, month, day) {
 		if (category === 'année') {
-			this.switchView(this.eventsYearView);
+			this.loadView(new window.EventsYearView());
 		} else if (category === 'mois') {
+			this.loadView(new window.EventsCollectionView());
+			console.log(this.view);
+
 			year = parseInt(year) || moment().year();
 			// Months are starting at 0.
 			month = parseInt(month) - 1 || moment().month();
 			var date = moment([year, month]);
 
-			this.eventsView.formatDate = 'en ' + date.format('MMMM');
-			this.eventsView._collection.method = 'month/' + date.format('YYYY/MM');
-			this.eventsView._collection.fetch({remove: false});
+			this.view.formatDate = 'en ' + date.format('MMMM');
+			this.view._collection.method = 'month/' + date.format('YYYY/MM');
+			this.view._collection.fetch({remove: false});
 
-			this.eventsView.prev = '#events/mois/' + moment(date).add('months', -1).format('YYYY/MM');
-			this.eventsView.next = '#events/mois/' + moment(date).add('months', 1).format('YYYY/MM');
-			this.eventsView.method = 'month';
+			this.view.prev = '#events/mois/' + moment(date).add('months', -1).format('YYYY/MM');
+			this.view.next = '#events/mois/' + moment(date).add('months', 1).format('YYYY/MM');
+			this.view.method = 'month';
 
-			this.eventsView.switchCollection('month', {year: date.year(), month: date.month()});
-			this.switchView(this.eventsView);
+			this.view.switchCollection('month', {year: date.year(), month: date.month()});
 		} else {
+			this.loadView(new window.EventsCollectionView());
+
 			year = parseInt(year) || moment().year();
 			month = parseInt(month) - 1 || moment().month();
 			day = parseInt(day) || moment().date();
@@ -422,37 +453,36 @@ window.ApplicationRouter = Backbone.Router.extend({
 			var week2 = moment(date).endOf('week');
 
 			if (week1.month() === week2.month()) {
-				this.eventsView.formatDate = 'du ' + week1.format('D') + ' au ' + week2.format('D') + ' ' + week1.format('MMMM');
+				this.view.formatDate = 'du ' + week1.format('D') + ' au ' + week2.format('D') + ' ' + week1.format('MMMM');
 			} else {
-				this.eventsView.formatDate = 'du ' + week1.format('D MMMM') + ' au ' + week2.format('D MMMM');
+				this.view.formatDate = 'du ' + week1.format('D MMMM') + ' au ' + week2.format('D MMMM');
 			}
-			this.eventsView.method = 'week';
+			this.view.method = 'week';
 
-			this.eventsView.prev = '#events/semaine/' + moment(week1).add('w', -1).format('YYYY/MM/DD');
-			this.eventsView.next = '#events/semaine/' + moment(week1).add('w', 1).format('YYYY/MM/DD');
+			this.view.prev = '#events/semaine/' + moment(week1).add('w', -1).format('YYYY/MM/DD');
+			this.view.next = '#events/semaine/' + moment(week1).add('w', 1).format('YYYY/MM/DD');
 
-			this.eventsView._collection.method = 'week/' + date.format('YYYY/w');
-			this.eventsView._collection.fetch({remove: false});
+			this.view._collection.method = 'week/' + date.format('YYYY/w');
+			this.view._collection.fetch({remove: false});
 
-			this.eventsView.switchCollection('week', {year: date.year(), month: date.month(), week: date.week()});
-			this.switchView(this.eventsView);
+			this.view.switchCollection('week', {year: date.year(), month: date.month(), week: date.week()});
 		}
 	},
 
 	showCSE: function() {
-		this.switchView(this.cseView);
+		this.loadView(new CSEView());
 	},
 
 	showCSEDemande: function() {
-		this.switchView(this.cseDemandeView);
+		this.loadView(new CSEDemandeView());
 	},
 
 	showAssociations: function() {
-		this.switchView(this.associationsView);
+		this.loadView(new AssociationsView());
 	},
 
 	showFederation: function() {
-		this.switchView(this.federationView);
+		this.loadView(new FederationView());
 	},
 });
 
