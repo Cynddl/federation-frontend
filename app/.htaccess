@@ -3,6 +3,7 @@
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !\.(js|css|gif|jpg|jpeg|png|ico|swf|pdf|html|php|json|svg|woff|eot|ttf)$
     RewriteCond %{REQUEST_URI} !^index
+    RewriteCond %{REQUEST_URI} !^/wiki.*
     RewriteRule (.*) index.html [L]
 </ifModule>
 
