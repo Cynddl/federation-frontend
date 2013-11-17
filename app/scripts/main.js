@@ -342,7 +342,7 @@ window.CSEDemandeView = Backbone.View.extend({
 	render: function(){
 		var html = this.template();
 		$(this.el).html(html);
-		$('#demande-form').replaceWith( this.form.el );
+		$(this.el).find('#demande-form').replaceWith( this.form.el );
 		return this;
 	}
 });
