@@ -430,7 +430,7 @@ window.ApplicationRouter = Backbone.Router.extend({
 
 			year = parseInt(year) || moment().year();
 			// Months are starting at 0.
-			month = parseInt(month) - 1 || moment().month();
+			month = (parseInt(month) || moment().month() + 1) - 1;
 			var date = moment([year, month]);
 
 			this.view.formatDate = 'en ' + date.format('MMMM');
