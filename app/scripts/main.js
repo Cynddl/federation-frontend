@@ -220,15 +220,15 @@ window.EventsCollectionView = Backbone.View.extend({
 	},
 
 	popup: function(ev){
-		console.log('popup !');
 		ev.preventDefault();
 		var modalId = $(ev.currentTarget).data('modal');
 		$('#' + modalId).toggleClass('md-show');
 		$('body').toggleClass('overflow');
 
-		$('.md-overlay, #' + modalId + ' .md-close').click(function(){
+		$('.md-overlay, #' + modalId + ' .md-close').click(function(ev){
 			$('#' + modalId).removeClass('md-show');
 			$('body').removeClass('overflow');
+			ev.preventDefault();
 		});
 	},
 
